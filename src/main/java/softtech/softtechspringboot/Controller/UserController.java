@@ -3,6 +3,7 @@ package softtech.softtechspringboot.Controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import softtech.softtechspringboot.Dto.UserDeleteDto;
 import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.Service.UserService;
 
@@ -50,10 +51,10 @@ public class UserController {
         return ResponseEntity.ok(userSaveRequestDto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") Long id){
+    @DeleteMapping
+    public ResponseEntity delete(@RequestBody UserDeleteDto userDeleteDto){
 
-        userService.delete(id);     //TODO: “XXX kullanıcı adı ile YYY telefonu bilgileri uyuşmamaktadır.” olayı eklenmelidir.
+        userService.delete(userDeleteDto);
         return ResponseEntity.ok(Void.TYPE);
     }
 }

@@ -13,10 +13,15 @@ public class UserEntityService extends BaseEntityService<User,UserDao>{
         super(dao);
     }
 
-    public User findByName(String name){
-        return getDao().findAllByName(name);
-    }
     public User getById(Long id){
         return getDao().getById(id);
+    }
+
+    public User findByName(String name){
+        return getDao().findByName(name);
+    }
+
+    public User findByPhoneNumber(String phoneNumber){
+        return getDao().findByPhoneNumber(phoneNumber);
     }
 }

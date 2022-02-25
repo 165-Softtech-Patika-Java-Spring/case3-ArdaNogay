@@ -7,5 +7,6 @@ import softtech.softtechspringboot.Entity.User;
 @Repository
 public interface UserDao extends JpaRepository<User,Long> {
 
-    User findAllByName(String name);
+    User findByName(String name);
+    User findByPhoneNumber (String phoneNumber);
 }

@@ -3,11 +3,13 @@ package softtech.softtechspringboot.Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import softtech.softtechspringboot.Converter.UserMapper;
+import softtech.softtechspringboot.Dto.UserDeleteDto;
 import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.Entity.User;
 import softtech.softtechspringboot.Service.EntityService.UserEntityService;
 
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,9 +44,19 @@ public class UserService {
         return userSaveRequestDto;
     }
 
-    public void delete(Long id) {
-        User user = userEntityService.getById(id);  //TODO: FINDBYID İLE OPTİONAl HALE GETİRİLEBİLİR
-        userEntityService.delete(user);
+    public void delete(UserDeleteDto userDeleteDto) {
+        User userFromPhone = userEntityService.findByPhoneNumber(userDeleteDto.getPhoneNumber());
+        User userFromName = userEntityService.findByName(userDeleteDto.getName());
+        if(!userEntityService.existById(userFromPhone.getId())){
+            throw new EntityNotFoundException("The user you gave the input value was not found!");
+        }
+        else if(!userEntityService.existById(userFromName.getId())){
+            throw new EntityNotFoundException("The user you gave the input value was not found!");
+        }else if (userFromPhone.getId()!=userFromName.getId()){
+            throw new IllegalArgumentException("Username " + userDeleteDto.getName()+
+                    " and phone number " + userDeleteDto.getPhoneNumber()+ " do not match.");
+        }
+        userEntityService.delete(userFromPhone);
     }
 
     public UserSaveRequestDto update(Long id, UserSaveRequestDto userSaveRequestDto) {

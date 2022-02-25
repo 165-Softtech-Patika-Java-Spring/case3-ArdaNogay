@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class BaseEntityService<Entity,Dao extends JpaRepository> {
+public class BaseEntityService<Entity ,Dao extends JpaRepository> {
 
     private final Dao dao;
 
