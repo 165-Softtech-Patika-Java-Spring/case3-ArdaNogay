@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import softtech.softtechspringboot.Dto.ProductPriceDto;
 import softtech.softtechspringboot.Dto.ProductSaveRequestDto;
-import softtech.softtechspringboot.Entity.Product;
 import softtech.softtechspringboot.Service.ProductService;
 
 import java.util.List;

@@ -15,4 +15,5 @@ public class ProductEntityService extends BaseEntityService<Product, ProductDao>
     public Product getById(Long id) {
         return getDao().getById(id);
     }
+
 }
