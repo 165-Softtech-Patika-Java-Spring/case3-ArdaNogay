@@ -49,11 +49,11 @@ public class UserService {
     public void delete(UserDeleteDto userDeleteDto) {
         User userFromPhone = userDao.findByPhoneNumber(userDeleteDto.getPhoneNumber());
         User userFromName = userDao.findByName(userDeleteDto.getName());
-        if(userDao.getById(userFromPhone.getId())==null){
-            throw new EntityNotFoundException("The user you gave the input value was not found!");
+        if(userFromPhone==null){
+            throw new EntityNotFoundException("The user you gave the input (" + userDeleteDto.getPhoneNumber()+ ") value was not found!");
         }
-        else if(userDao.getById(userFromName.getId())==null){
-            throw new EntityNotFoundException("The user you gave the input value was not found!");
+        else if(userFromName==null){
+            throw new EntityNotFoundException("The user you gave the input (" + userDeleteDto.getName()+ ") value was not found!");
         }else if (userFromPhone.getId()!=userFromName.getId()){
             throw new IllegalArgumentException("Username " + userDeleteDto.getName()+
                     " and phone number " + userDeleteDto.getPhoneNumber()+ " do not match.");

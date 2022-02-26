@@ -42,6 +42,7 @@ public class ProductService {
     public ProductSaveRequestDto update(Long id, ProductPriceDto productPriceDto) {
         Product product = productDao.getById(id);
         product.setPrice(productPriceDto.getPrice());
+        productDao.save(product);
         ProductSaveRequestDto productSaveRequestDto = ProductMapper.INSTANCE.convertToProductSaveRequestDto(product);
         return productSaveRequestDto;
     }
