@@ -5,6 +5,7 @@ import lombok.Setter;
 import softtech.softtechspringboot.Enum.UserType;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Getter
@@ -13,8 +14,9 @@ import javax.persistence.*;
 public class User {
 
     @Id
-    @SequenceGenerator(name = "User",sequenceName = "USER_ID_SEQ")
+    @SequenceGenerator(name = "User",sequenceName = "USER_ID_SEQ", allocationSize = 1)
     @GeneratedValue(generator = "User")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "NAME",length = 70, nullable = true)

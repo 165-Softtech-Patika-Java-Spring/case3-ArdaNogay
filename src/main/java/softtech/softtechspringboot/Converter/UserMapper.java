@@ -14,7 +14,7 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    UserSaveRequestDto convertToUserSaveRequestDto(Optional<User> user);
+
     UserSaveRequestDto convertToUserSaveRequestDto(User user);
 
     List<UserSaveRequestDto> convertToUserSaveRequestDtoList(List<User> userList);
