@@ -17,10 +17,10 @@ public class Product {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "NAME",length = 70,nullable = true)
+    @Column(name = "NAME",length = 70,nullable = false)
     private String name;
 
-    @Column(name = "PRICE",precision =19 ,scale = 2,nullable = true)
+    @Column(name = "PRICE",precision =19 ,scale = 2,nullable = false)
     private Integer price;
 
 }

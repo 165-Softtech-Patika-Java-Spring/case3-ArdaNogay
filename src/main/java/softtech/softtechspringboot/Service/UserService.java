@@ -68,7 +68,7 @@ public class UserService {
         user.setEmail(userSaveRequestDto.getEmail());
         user.setPhoneNumber(userSaveRequestDto.getPhoneNumber());
         user.setUserType(userSaveRequestDto.getUserType());
-
+        user = userDao.save(user);
         UserSaveRequestDto saveRequestDto = UserMapper.INSTANCE.convertToUserSaveRequestDto(user);
         return saveRequestDto;
     }

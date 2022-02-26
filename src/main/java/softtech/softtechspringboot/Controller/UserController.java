@@ -25,7 +25,7 @@ public class UserController {
         return ResponseEntity.ok(userSaveRequestDtoList);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById/{id}")
     public ResponseEntity getById(@PathVariable Long id){
 
        UserSaveRequestDto userSaveRequestDto =  userService.findById(id);
@@ -46,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok(willBeReturnedUserSaveRequestDto); // TODO : Reponse DTo eklenecek
     }
 
-    @PutMapping("/{id}") // Todo : id li dto eklenecek
+    @PutMapping("/update/{id}") // Todo : id li dto eklenecek
     public ResponseEntity update(@PathVariable("id") Long id,@RequestBody UserSaveRequestDto userSaveRequestDto){
 
         userSaveRequestDto = userService.update(id,userSaveRequestDto);

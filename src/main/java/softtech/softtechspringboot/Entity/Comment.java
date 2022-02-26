@@ -17,13 +17,13 @@ public class Comment {
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ID_USER",length = 70,nullable = true)
+    @Column(name = "ID_USER",length = 70,nullable = false)
     private Long userId;
 
-    @Column(name = "ID_PRODUCT",length = 70,nullable = true)
+    @Column(name = "ID_PRODUCT",length = 70,nullable = false)
     private Long productId;
 
-    @Column(name = "MESSAGE",length = 500,nullable = true)
+    @Column(name = "MESSAGE",length = 500,nullable = false)
     private String message;
 
 }
