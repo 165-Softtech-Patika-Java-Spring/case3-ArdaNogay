@@ -1,12 +1,14 @@
 package softtech.softtechspringboot.Controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import softtech.softtechspringboot.Dto.UserDeleteDto;
 import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.Service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -16,7 +18,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping
+    @GetMapping("/getAll")
     public ResponseEntity getAll(){
 
         List<UserSaveRequestDto> userSaveRequestDtoList = userService.findAll();
@@ -30,28 +32,28 @@ public class UserController {
        return ResponseEntity.ok(userSaveRequestDto);
     }
 
-    @GetMapping
+    @GetMapping("/getByName")
     public ResponseEntity getByName(@RequestParam String name){
 
         UserSaveRequestDto userSaveRequestDto = userService.findByName(name);
         return ResponseEntity.ok(userSaveRequestDto);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity save(@RequestBody UserSaveRequestDto userSaveRequestDto){
 
-        userSaveRequestDto = userService.save(userSaveRequestDto);
-        return ResponseEntity.ok(userSaveRequestDto);
+        UserSaveRequestDto willBeReturnedUserSaveRequestDto = userService.save(userSaveRequestDto);
+        return ResponseEntity.ok(willBeReturnedUserSaveRequestDto); // TODO : Reponse DTo eklenecek
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}") // Todo : id li dto eklenecek
     public ResponseEntity update(@PathVariable("id") Long id,@RequestBody UserSaveRequestDto userSaveRequestDto){
 
         userSaveRequestDto = userService.update(id,userSaveRequestDto);
         return ResponseEntity.ok(userSaveRequestDto);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/delete")
     public ResponseEntity delete(@RequestBody UserDeleteDto userDeleteDto){
 
         userService.delete(userDeleteDto);

@@ -11,4 +11,5 @@ public interface CommentDao extends JpaRepository<Comment,Long> {
 
     List<Comment> getCommentsByProductId(Long id);
     List<Comment> getCommentsByUserId(Long id);
+
 }
