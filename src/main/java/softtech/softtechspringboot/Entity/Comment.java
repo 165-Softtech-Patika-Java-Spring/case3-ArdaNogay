@@ -20,10 +20,10 @@ public class Comment {
     @Column(name = "ID_USER",length = 70,nullable = false)
     private Long userId;
 
-    @Column(name = "ID_PRODUCT",length = 70,nullable = false)
+    @Column(name = "ID_PRODUCT",length = 70,nullable = true)
     private Long productId;
 
-    @Column(name = "MESSAGE",length = 500,nullable = false)
+    @Column(name = "MESSAGE",length = 500,nullable = true)
     private String message;
 
 }

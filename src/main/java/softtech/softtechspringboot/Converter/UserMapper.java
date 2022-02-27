@@ -7,13 +7,12 @@ import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.Entity.User;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
 
     UserSaveRequestDto convertToUserSaveRequestDto(User user);
 
