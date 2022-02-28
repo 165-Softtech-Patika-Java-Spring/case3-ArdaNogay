@@ -15,7 +15,6 @@ public class Comment extends BaseEntity {
     @Id
     @SequenceGenerator(name = "Comment" ,sequenceName = "COMMENT_ID_SEQ",allocationSize = 1)
     @GeneratedValue(generator = "Comment")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "ID_USER",length = 70,nullable = false)

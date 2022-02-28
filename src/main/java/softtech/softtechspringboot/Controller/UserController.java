@@ -1,14 +1,12 @@
 package softtech.softtechspringboot.Controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import softtech.softtechspringboot.Dto.UserDeleteDto;
 import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.Service.UserService;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController

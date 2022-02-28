@@ -44,7 +44,7 @@ public class UserService {
 
     private void emailFormatControl(UserSaveRequestDto userSaveRequestDto) {
         if(!EmailRegex.isEmailValid(userSaveRequestDto.getEmail())){
-            throw new RuntimeException("Email doğru formatta değil!");
+            throw new RuntimeException("Email is not in correct format!");
         }
     }
 
@@ -53,7 +53,7 @@ public class UserService {
         List<String>  nameList = userEntityService.findNames();
         for(String name : nameList){
             if(name.equals(userSaveRequestDto.getName())){
-                throw new RuntimeException("Kullanıcı adı aynı olamaz!");
+                throw new RuntimeException("Username cannot be the same!");
             }
         }
         return true;
@@ -63,7 +63,7 @@ public class UserService {
         List<String>  phoneNumberList = userEntityService.findPhoneNumbers();
         for(String phoneNumber : phoneNumberList){
             if(phoneNumber.equals(userSaveRequestDto.getPhoneNumber())){
-                throw new RuntimeException("Telefon numarası aynı olamaz!");
+                throw new RuntimeException("Phone number cannot be the same!");
             }
         }
         return true;
@@ -73,7 +73,7 @@ public class UserService {
         List<String>  emailList = userEntityService.findEmails();
         for(String email : emailList){
             if(email.equals(userSaveRequestDto.getEmail())){
-                throw new RuntimeException("Email aynı olamaz!");
+                throw new RuntimeException("Email cannot be the same!");
             }
         }
         return true;

@@ -15,7 +15,6 @@ public class Product extends BaseEntity {
     @Id
     @SequenceGenerator(name = "Product",sequenceName = "PRODUCT_ID_SEQ",allocationSize = 1)
     @GeneratedValue(generator = "Product")
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "NAME",length = 70,nullable = true)
