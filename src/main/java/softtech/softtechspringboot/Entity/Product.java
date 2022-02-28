@@ -2,6 +2,7 @@ package softtech.softtechspringboot.Entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import softtech.softtechspringboot.Service.BaseEntity;
 
 import javax.persistence.*;
 
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Table(name = "PRODUCT")
-public class Product {
+public class Product extends BaseEntity {
 
     @Id
     @SequenceGenerator(name = "Product",sequenceName = "PRODUCT_ID_SEQ",allocationSize = 1)

@@ -7,8 +7,7 @@ import softtech.softtechspringboot.Dto.UserDeleteDto;
 import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.EmailFormatValidation.EmailRegex;
 import softtech.softtechspringboot.Entity.User;
-import softtech.softtechspringboot.Repository.UserDao;
-
+import softtech.softtechspringboot.Service.EntityService.UserEntityService;
 
 
 import javax.persistence.EntityNotFoundException;
@@ -18,18 +17,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
 
-//    private final UserEntityService userEntityService;
-
-    private final UserDao userDao;
+    private final UserEntityService userEntityService;
 
     public List<UserSaveRequestDto> findAll() {
-        List<User> userList = userDao.findAll();
+        List<User> userList = userEntityService.findAll();
         List<UserSaveRequestDto> userSaveRequestDtoList = UserMapper.INSTANCE.convertToUserSaveRequestDtoList(userList);
         return userSaveRequestDtoList;
     }
 
     public UserSaveRequestDto findById(Long id) {
-        User user = userDao.getById(id);
+        User user = userEntityService.getById(id);
         UserSaveRequestDto userSaveRequestDto = UserMapper.INSTANCE.convertToUserSaveRequestDto(user);
         return userSaveRequestDto;
     }
@@ -40,7 +37,7 @@ public class UserService {
         emailValidation(userSaveRequestDto);
         emailFormatControl(userSaveRequestDto);
         User user = UserMapper.INSTANCE.convertToUser(userSaveRequestDto);
-        user = userDao.save(user);
+        user = userEntityService.save(user);
         UserSaveRequestDto willBeReturnedUserSaveRequestDto = UserMapper.INSTANCE.convertToUserSaveRequestDto(user);
         return willBeReturnedUserSaveRequestDto;
     }
@@ -53,7 +50,7 @@ public class UserService {
 
 
     private boolean nameValidation(UserSaveRequestDto userSaveRequestDto) {
-        List<String>  nameList = userDao.findNames();
+        List<String>  nameList = userEntityService.findNames();
         for(String name : nameList){
             if(name.equals(userSaveRequestDto.getName())){
                 throw new RuntimeException("Kullanıcı adı aynı olamaz!");
@@ -63,7 +60,7 @@ public class UserService {
     }
 
     private boolean phoneNumberValidation(UserSaveRequestDto userSaveRequestDto) {
-        List<String>  phoneNumberList = userDao.findPhoneNumbers();
+        List<String>  phoneNumberList = userEntityService.findPhoneNumbers();
         for(String phoneNumber : phoneNumberList){
             if(phoneNumber.equals(userSaveRequestDto.getPhoneNumber())){
                 throw new RuntimeException("Telefon numarası aynı olamaz!");
@@ -73,7 +70,7 @@ public class UserService {
     }
 
     private boolean emailValidation(UserSaveRequestDto userSaveRequestDto) {
-        List<String>  emailList = userDao.findEmails();
+        List<String>  emailList = userEntityService.findEmails();
         for(String email : emailList){
             if(email.equals(userSaveRequestDto.getEmail())){
                 throw new RuntimeException("Email aynı olamaz!");
@@ -83,19 +80,19 @@ public class UserService {
     }
 
     public UserSaveRequestDto findByName(String name) {
-        User user = userDao.findByName(name);
+        User user = userEntityService.findByName(name);
         UserSaveRequestDto userSaveRequestDto = UserMapper.INSTANCE.convertToUserSaveRequestDto(user);
         return userSaveRequestDto;
     }
 
     public void delete(UserDeleteDto userDeleteDto) {
         User user = deleteValidation(userDeleteDto);
-        userDao.delete(user);
+        userEntityService.delete(user);
     }
 
     private User deleteValidation(UserDeleteDto userDeleteDto) {
-        User userFromPhone = userDao.findByPhoneNumber(userDeleteDto.getPhoneNumber());
-        User userFromName = userDao.findByName(userDeleteDto.getName());
+        User userFromPhone = userEntityService.findByPhoneNumber(userDeleteDto.getPhoneNumber());
+        User userFromName = userEntityService.findByName(userDeleteDto.getName());
         if(userFromPhone==null){
             throw new EntityNotFoundException("The user you gave the input (" + userDeleteDto.getPhoneNumber()+ ") value was not found!");
         }
@@ -116,13 +113,13 @@ public class UserService {
     }
 
     private User userUpdateMapping(Long id, UserSaveRequestDto userSaveRequestDto) {
-        User user = userDao.getById(id);
+        User user = userEntityService.getById(id);
         user.setName(userSaveRequestDto.getName());
         user.setSurname(userSaveRequestDto.getSurname());
         user.setEmail(userSaveRequestDto.getEmail());
         user.setPhoneNumber(userSaveRequestDto.getPhoneNumber());
         user.setUserType(userSaveRequestDto.getUserType());
-        user = userDao.save(user);
+        user = userEntityService.save(user);
         return user; //Todo: BU UPDATE OLAYINI DEĞİŞTİR. ÇİRKİN OLDU.
     }
 }
