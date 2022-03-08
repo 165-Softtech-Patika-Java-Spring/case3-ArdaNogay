@@ -9,6 +9,7 @@ import softtech.softtechspringboot.Dto.CommentSaveRequestDto;
 import softtech.softtechspringboot.Entity.Comment;
 import softtech.softtechspringboot.Entity.Product;
 import softtech.softtechspringboot.Entity.User;
+import softtech.softtechspringboot.Exception.CommentException.NoProductCommentsFoundException;
 import softtech.softtechspringboot.Service.EntityService.CommentEntityService;
 import softtech.softtechspringboot.Service.EntityService.ProductEntityService;
 import softtech.softtechspringboot.Service.EntityService.UserEntityService;
@@ -48,7 +49,7 @@ public class CommentService {
     private void commentValidationByProductId(Long productId, List<Comment> commentList) {
         if(commentList.isEmpty()){
             Product product = productEntityService.getById(productId);
-            throw new NotFoundException("There are no comments for " + product.getName() +" product yet.");
+            throw new NoProductCommentsFoundException(product.getName());
         }
     }
 

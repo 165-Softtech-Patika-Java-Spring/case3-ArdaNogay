@@ -41,10 +41,10 @@ public class UserController {
     public ResponseEntity save(@RequestBody UserSaveRequestDto userSaveRequestDto){
 
         UserSaveRequestDto willBeReturnedUserSaveRequestDto = userService.save(userSaveRequestDto);
-        return ResponseEntity.ok(willBeReturnedUserSaveRequestDto); // TODO : Reponse DTo eklenecek
+        return ResponseEntity.ok(willBeReturnedUserSaveRequestDto);
     }
 
-    @PutMapping("/update/{id}") // Todo : id li dto eklenecek
+    @PutMapping("/update/{id}")
     public ResponseEntity update(@PathVariable("id") Long id,@RequestBody UserSaveRequestDto userSaveRequestDto){
 
         userSaveRequestDto = userService.update(id,userSaveRequestDto);

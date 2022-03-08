@@ -7,6 +7,10 @@ import softtech.softtechspringboot.Dto.UserDeleteDto;
 import softtech.softtechspringboot.Dto.UserSaveRequestDto;
 import softtech.softtechspringboot.EmailFormatValidation.EmailRegex;
 import softtech.softtechspringboot.Entity.User;
+import softtech.softtechspringboot.Enum.BaseErrorMessage;
+import softtech.softtechspringboot.Exception.UserException.UserInformationMustBeUniqueException;
+import softtech.softtechspringboot.Exception.UserException.UserInformationNotMatchedException;
+import softtech.softtechspringboot.Exception.UserException.WrongUserInformationException;
 import softtech.softtechspringboot.Service.EntityService.UserEntityService;
 
 
@@ -53,7 +57,7 @@ public class UserService {
         List<String>  nameList = userEntityService.findNames();
         for(String name : nameList){
             if(name.equals(userSaveRequestDto.getName())){
-                throw new RuntimeException("Username cannot be the same!");
+                throw new UserInformationMustBeUniqueException(BaseErrorMessage.UNIQUE_USERNAME);
             }
         }
         return true;
@@ -63,7 +67,7 @@ public class UserService {
         List<String>  phoneNumberList = userEntityService.findPhoneNumbers();
         for(String phoneNumber : phoneNumberList){
             if(phoneNumber.equals(userSaveRequestDto.getPhoneNumber())){
-                throw new RuntimeException("Phone number cannot be the same!");
+                throw new UserInformationMustBeUniqueException(BaseErrorMessage.UNIQUE_PHONE_NUMBER);
             }
         }
         return true;
@@ -73,7 +77,7 @@ public class UserService {
         List<String>  emailList = userEntityService.findEmails();
         for(String email : emailList){
             if(email.equals(userSaveRequestDto.getEmail())){
-                throw new RuntimeException("Email cannot be the same!");
+                throw new UserInformationMustBeUniqueException(BaseErrorMessage.UNIQUE_EMAIL);
             }
         }
         return true;
@@ -94,13 +98,12 @@ public class UserService {
         User userFromPhone = userEntityService.findByPhoneNumber(userDeleteDto.getPhoneNumber());
         User userFromName = userEntityService.findByName(userDeleteDto.getName());
         if(userFromPhone==null){
-            throw new EntityNotFoundException("The user you gave the input (" + userDeleteDto.getPhoneNumber()+ ") value was not found!");
+            throw new WrongUserInformationException(userDeleteDto.getPhoneNumber());
         }
         else if(userFromName==null){
-            throw new EntityNotFoundException("The user you gave the input (" + userDeleteDto.getName()+ ") value was not found!");
+            throw new WrongUserInformationException(userDeleteDto.getName());
         }else if (userFromPhone.getId()!=userFromName.getId()){
-            throw new IllegalArgumentException("Username " + userDeleteDto.getName()+
-                    " and phone number " + userDeleteDto.getPhoneNumber()+ " do not match.");
+            throw new UserInformationNotMatchedException(userDeleteDto.getName(),userDeleteDto.getPhoneNumber());
         }
         return userFromPhone;
     }
@@ -120,6 +123,6 @@ public class UserService {
         user.setPhoneNumber(userSaveRequestDto.getPhoneNumber());
         user.setUserType(userSaveRequestDto.getUserType());
         user = userEntityService.save(user);
-        return user; //Todo: BU UPDATE OLAYINI DEĞİŞTİR. ÇİRKİN OLDU.
+        return user;
     }
 }
