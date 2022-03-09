@@ -29,7 +29,7 @@ Bir online alışveriş sitesinin kullanıcı yorumlarını yöneten bir api yaz
 - Kullanıcı kaydedilebilecek bir servis yazınız.
 - Kullanıcı silebilecek bir servis yazınız. (kullanıcı adı, ve telefon bilgileri alınmalı). Eğer kullanıcı
 adı ve telefon uyuşmuyorsa “XXX kullanıcı adı ile YYY telefonu bilgileri uyuşmamaktadır.”
-şeklinde bir uyarı vermeil.
+şeklinde bir uyarı vermeli.
 - Kullanıcı bilgilerini güncelleyebilecek bir servis yazınız.
 
 
